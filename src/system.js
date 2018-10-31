@@ -1,21 +1,18 @@
 import levelUp from 'levelup';
-import mongoDown from 'mongodown';
-import mongojs from 'mongojs';
+import levelDown from 'leveldown';
 import levelGraph from 'levelgraph';
 import levelGraphRecursive from 'levelgraph-recursive';
 
 import expand from './expand';
 
 const clean = function clean(dbName, cb) {
-  const db = mongojs(dbName);
-  db.dropDatabase((err) => {
-    db.close();
+  levelDown.destroy(dbName, (err) => {
     cb(err);
   });
 };
 
 const create = function create(dbName, cleanDb, cb) {
-  const postClean = () => levelUp(dbName, { db: mongoDown }, (err, leveldb) => {
+  const postClean = () => levelUp(dbName, { db: levelDown }, (err, leveldb) => {
     if (err) {
       return cb(err);
     }
