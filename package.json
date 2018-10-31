@@ -33,6 +33,7 @@
   },
   "scripts": {
     "build": "babel src --out-dir lib",
+    "prepare": "npm run build",
     "prepublish": "npm run build",
     "test": "mocha test --compilers js:babel-register -R spec -s 1700 -t 30000",
     "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel-register -R spec test -s 1700 -t 30000"
